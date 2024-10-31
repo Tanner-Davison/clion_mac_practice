@@ -1,122 +1,36 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <print>
 
-struct Home
+
+int main()
 {
-    int x;
-    std::string street;
-    std::string home_name;
-    Home():x(0){};
-    Home(const int xP, std::string yP, std::string home_nameP):
-    x(xP),
-    street(std::move(yP)),
-    home_name(std::move(home_nameP))
-    {
-        std::cout<< "Home constructed" << std::endl;
-    }
-    Home& operator=(const Home& rhs)
-    {
-        this->x = rhs.x;
-        this->street = rhs.street;
-        this->home_name = rhs.home_name;
-        return *this;
-    }
-    friend std::ostream& operator <<(std::ostream& output, const Home& homeP)
-    {
-       output << "Street: " << homeP.x << " " << homeP.street
-        << " \n" << "Type: " << homeP.home_name;
-        return output;
-    }
-};
-
-class Family
-{
-public:
-    std::string name;
-    std::vector<Home> homes;
-    Home* home;
-
-    Family(std::string nameP, Home& homeP):
-    name(std::move(nameP)),
-    home(&homeP)
-    {
-        homes.push_back(homeP);
-    }
-
-    friend std::ostream& operator <<(std::ostream& output, const Family& family)
-    {
-        output << family.name << "\n Family \n"
-               << "Created the "
-               << family.home->home_name
-               << "\nLocated on street "
-               << family.home->x
-               << " "
-               << family.home->street << "\n"
-               << "\n # of homes: " << family.homes.size();  // Use size() instead of count
-
-        // Print all homes in the vector
-        for(size_t i = 0; i < family.homes.size(); i++)
-        {
-            output << "\nHome " << (i + 1) << ":\n" << family.homes[i];
-        }
-
-        return output;
-    }
-
-    ~Family(){ home = nullptr; }
-
-    void add_home(Home& addHomeP)
-    {
-        this->homes.push_back(addHomeP);
-    }
-};
-
-Home createHome()
-{
-    Home temp;
-    std::cout << "Enter street number: "<<std::endl;
-    std::cin >> temp.x;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    std::cout << "Enter Street name: " << std::endl;
-    getline(std::cin, temp.street);
-
-    std::cout << "Enter Home Type ex) 'Vacation Home': " <<std::endl;
-    getline(std::cin, temp.home_name);
-
-    return temp;
-}
-
-int main() {
-    auto address = new Home;
-
-    std::cout << "Enter street number: "<<std::endl;
-    std::cin >> address->x;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    std::cout << "Enter Street name: " << std::endl;
-    getline(std::cin, address->street);
-
-    std::cout << "Enter Home Type ex) 'Vacation Home': " <<std::endl;
-    getline(std::cin, address->home_name);  // Changed to getline
-
-    Family tanner{"Davison", *address};
-
-    char addMore = 'y';
-    while(addMore == 'y' || addMore == 'Y')
-    {
-        Home home_addition = createHome();
-        tanner.add_home(home_addition);
-        std::cout << "\nAdd another home? (y/n): ";
-        std::cin >> addMore;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
-
-    std::cout << "\nFinal Family Information:\n" << tanner << std::endl;
-
-    delete address;
+    int i = 0, &r = i;
+    const int ci = i, &cr = ci;
+    auto a = r; // OK a is int;
+    auto b = ci;// OK b is int;
+    auto c = cr;// OK c is int;
+    auto d = &i;// OK d is int pointer;
+    auto e = &ci;// OK e is a const int *;
+    const auto f = ci;// OK f is const int;
+    auto &g = ci; //OK &g is a const int&;
+    // auto &h = 42; error cant bind non-const literal to h;
+    const auto&j = 42;
+    a = 42;
+    b = 42;
+    c =42;
+    //d = 42; // d is a pointer this is an error;
+    //e = 42; // this is a constant reference binding and will error;
+    *d = 42;
+    i =10;
+    //g = 42;// g throws an error because you cannot redeclare a constant int
+    int y = 42;
+    const auto &p = y + 2;
+    y = 10;
+    int z = 100;
+    auto *ptr = &z;
+    auto &ref = *ptr;
+    ref =50;
+    std::cout << z;
     return 0;
 }
 
