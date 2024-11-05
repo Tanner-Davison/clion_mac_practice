@@ -1,7 +1,45 @@
 #include <iostream>
+using std::cout,std::endl, std::cin;
+#include <string>
+using std::string;
+#include <vector>
+using std::vector;
+#include <cctype>
+using std::isspace, std::empty;
+
 
 int main() {
+    string input_string;
+    vector<string> result_vector;
+    int index = 0;
+    while(getline(cin, input_string) && !input_string.empty())
+    {
+       if(!input_string.empty())
+       {
+           string temp_word;
+                for(const auto& c : input_string)
+                    {
+                    if(!isspace(c))
+                        temp_word += static_cast<char>(toupper(c));
+                    else if(!temp_word.empty())
+                    {
+                        result_vector.emplace_back(temp_word);
+                        temp_word.clear();
+                    }
+           }
+           if(!temp_word.empty())
+                result_vector.emplace_back(temp_word);
+       }
+    }
 
+    for(const auto& word: result_vector)
+    {
+        if(index > 0 && index % 9 ==0)
+            cout << "\n";
+        cout << word << " ";
+        ++index;
+    }
+    cout << '\n';
     return 0;
 }
 
