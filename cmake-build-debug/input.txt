@@ -1,0 +1,3 @@
+testing to see if cmake sees this input.txt file;
+testing multiple lines to check if found;
+cool;
