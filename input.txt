@@ -1,0 +1,2 @@
+testing input file in cmake
+does this work per line or what?

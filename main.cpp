@@ -1,18 +1,24 @@
 #include <iostream>
-using std::cout,std::endl, std::cin;
 #include <string>
-using std::string;
 #include <vector>
-using std::vector;
 #include <cctype>
-using std::isspace, std::empty;
+#include <fstream>
 
+using namespace std;
 
 int main() {
+
+    fstream inFile("input.txt");
+    if(!inFile)
+    {
+        cout << "No input file found!" << endl;
+        return 0;
+    }
     string input_string;
     vector<string> result_vector;
+
     int index = 0;
-    while(getline(cin, input_string) && !input_string.empty())
+    while(getline(inFile, input_string) && !input_string.empty())
     {
        if(!input_string.empty())
        {
