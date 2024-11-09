@@ -4,7 +4,6 @@
 #include <cctype>
 #include <fstream>
 #include <array>
-
 using namespace std;
 
 struct Person
