@@ -18,13 +18,16 @@ int main() {
         strcat(combined, " ");
         strcat(combined, ca2);
     }
+
     char *p = combined;
     while(*p)
     {
         cout << *p;
         ++p;
     }
-    cout << endl;
+
+        cout << endl;
+
     return 0;
 }
 
