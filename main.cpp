@@ -6,39 +6,27 @@
 #include <array>
 using namespace std;
 
-struct Person
-{
-    string name;
-    int age;
-};
-
 int main()
 {
-    int nums[]={1,2,3,4,5};
-    vector<int> mynums(begin(nums), end(nums));
-    vector<int> subVec(nums, nums+5);
+constexpr int row=10, col=5;
 
-    size_t sz = mynums.size();
-    cout << sz << " sz here!" << endl;
-
-    int iarr[sz];
-    ranges::copy(mynums.begin(),mynums.end(), iarr);
-
-    for(const auto& i: iarr)
+    int matrix[row][col];
+    for(size_t i = 0; i != row; ++i)
     {
-        cout << i << endl;
+        for(size_t j = 0; j != col; ++j)
+        {
+            matrix[i][j] = i * col +j;
+        }
     }
-    vector<Person*> people;
-    people.emplace_back(new Person("tanner", 28));
-    for(auto it = people.begin(); it < people.end(); ++it)
+    int count = 0;
+    for(auto & rowval : matrix)
     {
-        //better syntax when derefencing a member from an iterator pointer (*it)->mem;
-        cout << (*it)->name << " is " << (*it)->age << " years old." << endl;
-    }
-
-    for(auto& p: people)
-    {
-        delete p;
+        cout << "\n# " << ++count << endl;;
+        for(const int column : rowval)
+        {
+            cout <<"\t" << column << " ";
+        }
+        cout <<endl;
     }
 
     return 0;
