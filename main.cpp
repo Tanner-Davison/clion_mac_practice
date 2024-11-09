@@ -18,16 +18,29 @@ constexpr int row=10, col=5;
             matrix[i][j] = i * col +j;
         }
     }
-    int count = 0;
-    for(auto & rowval : matrix)
+
+    size_t count = 0;
+    for(auto p = matrix; p != matrix+row; ++p)
     {
-        cout << "\n# " << ++count << endl;;
-        for(const int column : rowval)
+        cout <<"# "<< ++count << "\n";
+        for(auto q = *p; q != *p + col; ++q)
         {
-            cout <<"\t" << column << " ";
+            cout <<"\t"<< *q << " ";
         }
-        cout <<endl;
+        cout << endl;
     }
+    //
+    // int count = 0;
+    // for(auto & rowval : matrix)
+    // {
+    //     cout << "\n# " << ++count << endl;;
+    //     for(const int column : rowval)
+    //     {
+    //         cout <<"\t" << column << " ";
+    //     }
+    //     cout <<endl;
+    // }
+    //
 
     return 0;
 }
