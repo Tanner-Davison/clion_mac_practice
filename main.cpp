@@ -3,59 +3,70 @@
 #include <vector>
 #include <cctype>
 #include <fstream>
-
+#include <array>
 using namespace std;
 
-int main() {
+int main()
+{
+constexpr int row=10, col=5;
 
-    fstream inFile("input.txt");
-    if(!inFile)
+    int matrix[row][col];
+    for(size_t i = 0; i != row; ++i)
     {
-        cout << "No input file found!" << endl;
-        return 0;
-    }
-    string input_string;
-    vector<string> result_vector;
-
-    int index = 0;
-    while(getline(inFile, input_string) && !input_string.empty())
-    {
-       if(!input_string.empty())
-       {
-           string temp_word;
-                for(const auto& c : input_string)
-                    {
-                    if(!isspace(c))
-                        temp_word += static_cast<char>(toupper(c));
-                    else if(!temp_word.empty())
-                    {
-                        result_vector.emplace_back(temp_word);
-                        temp_word.clear();
-                    }
-           }
-           if(!temp_word.empty())
-                result_vector.emplace_back(temp_word);
-       }
+        for(size_t j = 0; j != col; ++j)
+        {
+            matrix[i][j] = i * col +j;
+        }
     }
 
-    for(const auto& word: result_vector)
+    size_t count = 0;
+
+    //using library begin and end pointer functions;
+    // for(auto p = begin(matrix); p != end(matrix); ++p)
+    // {
+    //     cout << ++count << "\n";
+    //     for(auto q = begin(*p); q != end(*p);++q)
+    //     {
+    //         cout << "\t" <<  *q << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    //using the exact same as the one below just using keyword auto
+    for(auto p = matrix; p != matrix+row; ++p)
     {
-        if(index > 0 && index % 9 ==0)
-            cout << "\n";
-        cout << word << " ";
-        ++index;
+        cout <<"# "<< ++count << "\n";
+        for(auto q = *p; q != *p + col; ++q)
+        {
+            cout <<"\t"<< *q << " ";
+        }
+        cout << endl;
     }
-    cout << '\n';
+    // USING POINTERS TO ARRAY INDICES TO DERIVE VALUE AND SET THE ITERATORS;
+    // for(int(*p)[5] = matrix; p != matrix+row; ++p)
+    // {
+    //     cout <<"# "<< ++count << "\n";
+    //     for(int*q = *p; q != *p + col; ++q)
+    //     {
+    //         cout <<"\t"<< *q << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+
+    //USES THE RANGE BASE FOR LOOP (MAKE SURE TO USE '&' REFERENCE;
+    //
+    // int count = 0;
+    // for(auto & rowval : matrix)
+    // {
+    //     cout << "\n# " << ++count << endl;;
+    //     for(const int column : rowval)
+    //     {
+    //         cout <<"\t" << column << " ";
+    //     }
+    //     cout <<endl;
+    // }
+    //
+
     return 0;
 }
-
-/*
- //const int* const ptr = &x;
-//  ^      ^
-//  |      |
-//  |      const pointer (CAN'T reassign)
-//  const int (CAN'T modify value)
-
-// This has BOTH:
-// 1. Low-level const (const int) - can't modify value
-// 2. High-level const (const ptr) - can't reassign pointer*/
