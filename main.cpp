@@ -18,6 +18,7 @@ int main()
     people.emplace_back(new Person("tanner", 28));
     for(auto it = people.begin(); it < people.end(); ++it)
     {
+
         //better syntax when derefencing a member from an iterator pointer (*it)->mem;
         cout << (*it)->name << " is " << (*it)->age << " years old." << endl;
     }
